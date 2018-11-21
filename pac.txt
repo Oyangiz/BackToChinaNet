@@ -3,9 +3,11 @@ var rules = [
     [
         [],
         [
-            "163.com",
-            "bilibili.com",
-            "iqiyi.com"
+            "live.bilibili.com",
+            "www.bilibili.com",
+            "bangumi.bilibili.com",
+            "api.bilibili.com",
+            "cache.video.iqiyi.com"
         ]
     ],
     [

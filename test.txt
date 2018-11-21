@@ -3,7 +3,8 @@ var rules = [
     [
         [],
         [
-            "ip.cn",
+            "vd.l.qq.com",
+            "manga.bilibili.com",
             "live.bilibili.com",
             "www.bilibili.com",
             "bangumi.bilibili.com",

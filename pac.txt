@@ -1,35 +1,50 @@
+var proxy = 'SOCKS5 127.0.0.1:1080';
+var rules = [
+    [
+        [],
+        [
+            "163.com",
+            "bilibili.com",
+            "iqiyi.com"
+        ]
+    ],
+    [
+        [],
+        []
+    ]
+];
 
-var domains = {
-  "live.bilibili.com": 1, 
-  "www.bilibili.com": 1, 
-  "cache.video.iqiyi.com": 1, 
-  "bangumi.bilibili.com": 1, 
-  "api.bilibili.com": 1,
-  "music.163.com": 1
-};
-
-var proxy = "SOCKS5 127.0.0.1:1080;";
-
-var direct = 'DIRECT;';
-
-var hasOwnProperty = Object.hasOwnProperty;
+var lastRule = '';
 
 function FindProxyForURL(url, host) {
-    var suffix;
-    var pos = host.lastIndexOf('.');
-    pos = host.lastIndexOf('.', pos - 1);
-    while(1) {
-        if (pos <= 0) {
-            if (hasOwnProperty.call(domains, host)) {
-                return proxy;
-            } else {
-                return direct;
-            }
-        }
-        suffix = host.substring(pos + 1);
-        if (hasOwnProperty.call(domains, suffix)) {
-            return proxy;
-        }
-        pos = host.lastIndexOf('.', pos - 1);
+    for (var i = 0; i < rules.length; i++) {
+        ret = testHost(host, i);
+        if (ret != undefined)
+            return ret;
     }
+    return 'DIRECT';
+}
+
+function testHost(host, index) {
+    for (var i = 0; i < rules[index].length; i++) {
+        for (var j = 0; j < rules[index][i].length; j++) {
+            lastRule = rules[index][i][j];
+            if (host == lastRule || host.endsWith('.' + lastRule))
+                return i % 2 == 0 ? 'DIRECT' : proxy;
+        }
+    }
+    lastRule = '';
+}
+
+// REF: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
+if (!String.prototype.endsWith) {
+    String.prototype.endsWith = function(searchString, position) {
+        var subjectString = this.toString();
+        if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+            position = subjectString.length;
+        }
+        position -= searchString.length;
+        var lastIndex = subjectString.indexOf(searchString, position);
+        return lastIndex !== -1 && lastIndex === position;
+  };
 }

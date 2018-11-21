@@ -7,6 +7,8 @@ var rules = [
             "www.bilibili.com",
             "bangumi.bilibili.com",
             "api.bilibili.com",
+            "poi.iqing.com",
+            "music.163.com", //???
             "cache.video.iqiyi.com"
         ]
     ],

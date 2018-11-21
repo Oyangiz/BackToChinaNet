@@ -6,11 +6,8 @@ var rules = [
             "vd.l.qq.com",
             "manga.bilibili.com",
             "live.bilibili.com",
-            //"www.bilibili.com",
             "bangumi.bilibili.com",
-            //"api.bilibili.com",
             "poi.iqing.com",
-            //"music.163.com", //???
             "cache.video.iqiyi.com"
         ]
     ],
